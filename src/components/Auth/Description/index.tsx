@@ -8,12 +8,7 @@ import { useContext } from "react";
 
 export const Description = () => {
   const path = usePathname();
-  const {
-    open,
-    closeModal,
-    submitOtp,
-    resendOtp
-  } = useContext(SignupContext);
+
 
   return (
     <Box
@@ -21,11 +16,11 @@ export const Description = () => {
         width: ["100%", "24%"],
       }}
     >
-      <VerifyEmailModal 
+      {/* <VerifyEmailModal 
         open={open}
         submitOtp={submitOtp}
         resendOtp={resendOtp}
-      />
+      /> */}
       <Box
         sx={{
           px: "30px",

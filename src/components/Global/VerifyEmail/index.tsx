@@ -42,7 +42,7 @@ export const VerifyEmailModal = ({
         backdropFilter: "blur(10px)",
       }}
     >
-      <Fade in={true}>
+      <Fade in={open}>
         <Box
           sx={{
             width: ["80%"],

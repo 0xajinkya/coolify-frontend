@@ -1,8 +1,14 @@
 "use client";
 
-import { SignupProvider } from "@/context";
-import { ReactNode } from "react";
+import { GlobalContext, SignupProvider } from "@/context";
+import { ReactNode, useContext } from "react";
 
 export const SignupLayout = ({ children }: { children: ReactNode }) => {
-  return <SignupProvider>{children}</SignupProvider>;
+  const { user, setUser, setMode } = useContext(GlobalContext);
+
+  return (
+    <SignupProvider user={user} setUser={setUser} setMode={setMode}>
+      {children}
+    </SignupProvider>
+  );
 };

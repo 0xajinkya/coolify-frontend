@@ -3,7 +3,15 @@ import { getFromLocalStorage, setToLocalStorage } from "@/utils";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
+import { IUser } from "./global";
 
 interface IFormState {
   name: string;
@@ -17,27 +25,30 @@ interface ISignup {
   formState: IFormState | {};
   handleChange: (key: TSignupKeys, value: string) => void;
   submitForm: () => Promise<void>;
-  open: boolean;
-  closeModal: () => void;
-  resendOtp: () => Promise<void>;
-  submitOtp: (val: string) => Promise<void>;
-  login: () => Promise<void>
+  login: () => Promise<void>;
 }
 
 const initialValue = {
   formState: {},
   handleChange: () => {},
   submitForm: async () => {},
-  open: false,
-  closeModal: () => {},
-  resendOtp: async () => {},
-  submitOtp: async (val: string) => {},
-  login: async() => {}
+  login: async () => {},
 };
 
 export const SignupContext = createContext<ISignup>(initialValue);
 
-export const SignupProvider = ({ children }: { children: ReactNode }) => {
+export const SignupProvider = ({
+  children,
+  user,
+  setUser,
+  setMode
+}: {
+  children: ReactNode;
+  user: IUser | null;
+  setUser: Dispatch<SetStateAction<IUser | null>>;
+  setMode: Dispatch<SetStateAction<"signup" | "not-signup">>
+
+}) => {
   const router = useRouter();
   const [formState, setFormState] = useState({
     name: "",
@@ -45,7 +56,6 @@ export const SignupProvider = ({ children }: { children: ReactNode }) => {
     password: "",
     confirmPassword: "",
   });
-  const [open, setOpen] = useState(false);
 
   const handleChange = (
     key: "name" | "email" | "password" | "confirmPassword",
@@ -71,10 +81,8 @@ export const SignupProvider = ({ children }: { children: ReactNode }) => {
       });
 
       setToLocalStorage("accessToken", res.data.content.meta.access_token);
-      if (!res.data.content.data.verified) {
-        setOpen(true);
-        return;
-      }
+      setMode("signup");
+      setUser(res.data.content.data);
       return;
     } catch (error: any) {
       enqueueSnackbar({
@@ -89,7 +97,7 @@ export const SignupProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const login = async() => {
+  const login = async () => {
     try {
       const res = await axios.post(API_URL + "/auth/signin", {
         ...formState,
@@ -102,12 +110,9 @@ export const SignupProvider = ({ children }: { children: ReactNode }) => {
       });
 
       setToLocalStorage("accessToken", res.data.content.meta.access_token);
-      if (res.data.content.data.verified === false) {
-        setOpen(true);
-        resendOtp();
-        return;
-      } 
-      router.replace("/");
+      setUser(res.data.content.data);
+      setMode("not-signup");
+      // router.replace("/");
       return;
     } catch (error: any) {
       enqueueSnackbar({
@@ -120,81 +125,16 @@ export const SignupProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       return;
     }
-  }
-
-  const resendOtp = async () => {
-    try {
-      const res = await axios.post(
-        API_URL + "/auth/resend",
-        {},
-        {
-          headers: {
-            Authorization: getFromLocalStorage("accessToken"),
-          },
-        }
-      );
-      enqueueSnackbar({
-        message: "OTP sent on your email!",
-        variant: "success",
-      });
-    } catch (error: any) {
-      enqueueSnackbar({
-        message:
-          error.response.data && error.response.data.errors
-            ? error.response.data.errors[0].message
-            : error.response.data.message,
-        variant: "error",
-      });
-    } finally {
-      return;
-    }
-  };
-
-  const submitOtp = async (val: string) => {
-    try {
-      const res = await axios.post(
-        API_URL + "/auth/verify",
-        {
-          otp: val,
-        },
-        {
-          headers: {
-            Authorization: getFromLocalStorage("accessToken"),
-          },
-        }
-      );
-      console.log(res);
-      enqueueSnackbar({
-        message: "Email verified successfully!",
-        variant: "success",
-      });
-      setOpen(false);
-      router.replace("/");
-    } catch (error: any) {
-      enqueueSnackbar({
-        message:
-          error.response.data && error.response.data.errors
-            ? error.response.data.errors[0].message
-            : error.response.data.message,
-        variant: "error",
-      });
-    } finally {
-      return;
-    }
-  };
-
-  const closeModal = () => {
-    setOpen(false);
   };
 
   useEffect(() => {
     const getUser = () => {
-      if(getFromLocalStorage("accessToken")){
+      if (getFromLocalStorage("accessToken")) {
         router.replace("/");
       }
     };
     getUser();
-  }, [])
+  }, []);
 
   return (
     <SignupContext.Provider
@@ -202,11 +142,7 @@ export const SignupProvider = ({ children }: { children: ReactNode }) => {
         formState,
         handleChange,
         submitForm,
-        open,
-        closeModal,
-        resendOtp,
-        submitOtp,
-        login
+        login,
       }}
     >
       {children}
