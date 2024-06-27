@@ -4,7 +4,7 @@ import { TSignupKeys } from "@/context";
 import { Box, Icon, InputBase } from "@mui/material";
 import { useState } from "react";
 
-export const MainInput = ({ placeholder, required=false, icon, type = "text", fieldName, handleChange }: { placeholder: string, fieldName: string, required?: boolean, icon?: JSX.Element, type?: string, handleChange?: (key: "name" | "email" | "password" | "confirmPassword", value: string) => void }) => {
+export const MainInput = ({ placeholder, required=false, icon, type = "text", fieldName, handleChange }: { placeholder: string, fieldName: string, required?: boolean, icon?: JSX.Element, type?: string, handleChange?: (key: any, value: string) => void }) => {
 
     const [focused, setFocused] = useState(false);
 
@@ -28,7 +28,7 @@ export const MainInput = ({ placeholder, required=false, icon, type = "text", fi
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         type={type}
-        onChange={(e) => handleChange && handleChange(e.target.name as TSignupKeys, e.target.value)}
+        onChange={(e) => handleChange && handleChange(e.target.name as any, e.target.value)}
       />
     </Box>
   );

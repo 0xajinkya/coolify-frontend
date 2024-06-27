@@ -1,11 +1,12 @@
 "use client";
 
-import { Box, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import Link from "next/link";
 import { Hamburger, MainButton, MenuDrawer, OutlinedButton } from "../Global";
 import { usePathname, useRouter } from "next/navigation";
 import { UrlObject } from "url";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { GlobalContext } from "@/context";
 
 export const LinkComp = ({
   title,
@@ -32,6 +33,7 @@ export const LinkComp = ({
 };
 
 export const LNavbar = () => {
+  const { user } = useContext(GlobalContext);
   const router = useRouter();
   const path = usePathname();
   const [open, setOpen] = useState(false);
@@ -76,7 +78,7 @@ export const LNavbar = () => {
       </Box>
       <Box
         sx={{
-          display: ["none", "flex"],
+          display: ["none", user ? "none" : "flex"],
           gap: "12px",
           justifyContent: "center",
           alignItems: "center",
@@ -84,6 +86,35 @@ export const LNavbar = () => {
       >
         <MainButton text="Signup" onClick={() => router.push("/sign-up")} />
         <OutlinedButton text="Login" onClick={() => router.push("/log-in")} />
+      </Box>
+      <Box
+        sx={{
+          display: ["none", user ? "flex" : "none"],
+          flexDirection: "column",
+          // gap: "12px",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          sx={{
+            color: "#D2D2D2",
+            fontSize: "12px",
+          }}
+        >
+          Logged in as{" "}
+          <Link
+            href={"/profile"}
+            className="link"
+            style={{
+              color: "white",
+              fontSize: "12px",
+              textDecoration: "underline",
+            }}
+          >
+            {user?.name?.split(" ")[0]}
+          </Link>
+        </Typography>
       </Box>
       <Box
         sx={{

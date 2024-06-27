@@ -1,5 +1,6 @@
 import { LoginForm } from "@/components/SignupPage/LoginForm";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Link from "next/link";
 
 export default function Page () {
     return (
@@ -24,8 +25,9 @@ export default function Page () {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-evenly",
+          justifyContent: "center",
           alignItems: "center",
+          gap :"16px"
         }}
       >
         <Box
@@ -34,6 +36,22 @@ export default function Page () {
           }}
         >
           <LoginForm />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            width: ["80%", "40%"],
+            ml: "12px"
+          }}
+        >
+          <Typography
+            sx={{
+              alignItems: "center",
+              color: "rgba(0, 0, 0, 0.4)"
+            }}
+          >
+            Don&apos;t have an account? <Link href={"/sign-up"} className="link" style={{color: "#271F30"}}>Sign up</Link>
+          </Typography>
         </Box>
       </Box>
     </Box>

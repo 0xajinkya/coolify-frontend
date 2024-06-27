@@ -4,6 +4,8 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { MainButton, OutlinedButton } from "../Global";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { GlobalContext } from "@/context";
 
 const AbsoluteImage = ({
   src,
@@ -49,6 +51,7 @@ const AbsoluteImage = ({
 
 export const MainSec = () => {
   const router = useRouter();
+  const { user } = useContext(GlobalContext);
 
   return (
     <Box
@@ -116,20 +119,35 @@ export const MainSec = () => {
             style={{
               fontSize: ["14px", "20px"],
               borderRadius: "40px",
+              width: [user ? "210px" : "auto"],
             }}
             // onClick={}
           />
-          <MainButton
-            text="Get Started"
-            onClick={() => router.push("/log-in")}
-            style={{
-              background:
-                "linear-gradient(90deg, #ffcbdd 0%, #fcdc4d 80%, #d36135 100%)",
-              border: "1px solid #fcdc4d",
-              fontSize: ["14px", "20px"],
-              borderRadius: "40px",
-            }}
-          />
+          {!user ? (
+            <MainButton
+              text="Get Started"
+              onClick={() => router.push("/log-in")}
+              style={{
+                background:
+                  "linear-gradient(90deg, #ffcbdd 0%, #fcdc4d 80%, #d36135 100%)",
+                border: "1px solid #fcdc4d",
+                fontSize: ["14px", "20px"],
+                borderRadius: "40px",
+              }}
+            />
+          ) : (
+            <MainButton
+              text="Go to dashboard"
+              onClick={() => router.push("/app")}
+              style={{
+                background:
+                  "linear-gradient(90deg, #ffcbdd 0%, #fcdc4d 80%, #d36135 100%)",
+                border: "1px solid #fcdc4d",
+                fontSize: ["14px", "20px"],
+                borderRadius: "40px",
+              }}
+            />
+          )}
         </Box>
         <AbsoluteImage
           src={"/images/home/curve.png"}

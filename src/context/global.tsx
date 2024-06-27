@@ -1,3 +1,5 @@
+"use client";
+
 import { API_URL } from "@/constants";
 import { getFromLocalStorage } from "@/utils";
 import axios from "axios";
@@ -119,7 +121,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         if (user !== null) {
           if (user.verified === false) {
             setOpen(true);
-            mode !== "signup" && await resendOtp();
+            mode !== "signup" && (await resendOtp());
           }
           return;
         } else if (user === null && !!authT) {

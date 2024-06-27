@@ -1,3 +1,5 @@
+"use client";
+
 import { API_URL } from "@/constants";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils";
 import axios from "axios";
@@ -41,13 +43,12 @@ export const SignupProvider = ({
   children,
   user,
   setUser,
-  setMode
+  setMode,
 }: {
   children: ReactNode;
   user: IUser | null;
   setUser: Dispatch<SetStateAction<IUser | null>>;
-  setMode: Dispatch<SetStateAction<"signup" | "not-signup">>
-
+  setMode: Dispatch<SetStateAction<"signup" | "not-signup">>;
 }) => {
   const router = useRouter();
   const [formState, setFormState] = useState({
@@ -112,7 +113,7 @@ export const SignupProvider = ({
       setToLocalStorage("accessToken", res.data.content.meta.access_token);
       setUser(res.data.content.data);
       setMode("not-signup");
-      // router.replace("/");
+      router.replace("/");
       return;
     } catch (error: any) {
       enqueueSnackbar({
