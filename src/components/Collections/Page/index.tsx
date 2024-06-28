@@ -4,11 +4,11 @@ import { Box, CircularProgress, Fade, Modal, Typography } from "@mui/material";
 import { Heading } from "../Heading";
 import { CollectionsList } from "../CollectionsList";
 import { useContext } from "react";
-import { AppContext } from "@/context";
+import { AppContext, CollectionContext } from "@/context";
 import { Loader } from "@/components/Global";
 import { CreateCollectionModal } from "../CreateCollectionModal";
 
-export const AppPage = () => {
+export const CollectionPage = () => {
   const {
     collections,
     deleteCollection,
@@ -17,7 +17,7 @@ export const AppPage = () => {
     toggleModal,
     createModal,
     handleCollectionForm
-  } = useContext(AppContext);
+  } = useContext(CollectionContext);
 
   return (
     <Box sx={{}}>
