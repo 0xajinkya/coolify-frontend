@@ -29,11 +29,12 @@ export const SingleCollectionPage = () => {
             createdBy={(collection as ICollection).owner!.name}
             description={(collection as ICollection).description}
           />
-          {posts?.map((p) => (
+          {posts?.map((p, i) => (
             <Box
               sx={{
                 px: "50px",
               }}
+              key={i}
             >
               <PostCard key={p.id} post={p} togglePost={togglePost}/>
               <Divider
