@@ -20,10 +20,16 @@ export const CollectionPage = () => {
   } = useContext(CollectionContext);
 
   return (
-    <Box sx={{}}>
+    <Box 
+      sx={{
+        position: "relative",
+        // pt: "20px"
+      }}
+    >
       <Heading 
         toggleModal={toggleModal}
       />
+      {/* <Box sx={{mt: "40px"}}></Box> */}
       <CollectionsList
         collections={collections}
         deleteCollection={deleteCollection}

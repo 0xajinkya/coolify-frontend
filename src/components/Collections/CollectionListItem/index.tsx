@@ -34,7 +34,7 @@ export const CollectionsListItem = ({
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: ["center"],
         boxShadow: "none",
       }}
     >
@@ -51,8 +51,19 @@ export const CollectionsListItem = ({
         onClick={() => router.push(`/app/${c.id}`)}
       >
         <Box>
-          <Typography sx={{ fontWeight: 600 }}>{c.name}</Typography>
-          <Typography sx={{ fontSize: "11px", color: "rgba(0, 0, 0, 0.5)" }}>
+          <Typography sx={{ fontWeight: [700, 600], fontSize: ["14px", "auto"] }}>{c.name}</Typography>
+          <Typography
+            sx={{
+              fontSize: ["10px", "11px"],
+              color: "rgba(0, 0, 0, 0.5)",
+              display: "-webkit-box",
+              WebkitLineClamp: 2 /* Number of lines to show */,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "normal",
+            }}
+          >
             {c.description}
           </Typography>
         </Box>
@@ -68,6 +79,7 @@ export const CollectionsListItem = ({
           sx={{
             width: "18px",
             height: "18px",
+            transform: ["rotate(90deg)", "none"]
           }}
         />
       </IconButton>

@@ -110,7 +110,7 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
     } catch (error: any) {
       enqueueSnackbar({
         message:
-          error?.message ?? "Cannot delete this collection, please try again!",
+          Array.isArray(error?.response?.data?.errors) ? error?.response?.data?.errors.message : "Cannot delete this collection, please try again!",
         variant: "error",
       });
     } finally {

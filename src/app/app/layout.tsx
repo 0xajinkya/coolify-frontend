@@ -1,5 +1,6 @@
 import { AppLayout, Sidebar } from "@/components";
-import { Box } from "@mui/material";
+import { ExitToApp } from "@mui/icons-material";
+import { Box, Fab } from "@mui/material";
 import { ReactNode } from "react";
 import * as React from "react";
 
@@ -15,7 +16,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
           color: "black",
           display: "flex",
           flexDirection: ["column", "row"],
-          overflow: "hidden",
         }}
       >
         <Box
@@ -23,26 +23,31 @@ const Layout = ({ children }: { children: ReactNode }) => {
             display: "flex",
             alignItems: "stretch",
             width: "100%",
-            p: "20px",
+            p: ["10px", "20px"],
           }}
         >
           <Sidebar />
+
           <Box
             sx={{
               width: "100%",
               height: "100%",
-              overflowX: "hidden",
-              overflowY: "hidden",
               backgroundColor: "white",
               borderRadius: "20px",
+              overflowY: "scroll",
+              scrollbarWidth: "none" /* Hide the scrollbar in Firefox */,
+              "-ms-overflow-style":
+                "none" /* Hide the scrollbar in Internet Explorer 10+ */,
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
             }}
           >
             <Box
               sx={{
                 p: "20px",
-                overflow: "hidden",
                 width: "100%",
-                height: "100%",
+                height: ["95vh", "50vh"],
               }}
             >
               {children}

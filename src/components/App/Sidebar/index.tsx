@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, SvgIconTypeMap } from "@mui/material";
+import { Box, Button, Fab, SvgIconTypeMap } from "@mui/material";
 import * as React from "react";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -22,7 +22,8 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { GlobalContext } from "@/context";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
-import { Collections } from "@mui/icons-material";
+import { Collections, ExitToApp } from "@mui/icons-material";
+import { MainButton } from "@/components/Global";
 
 const drawerWidth = 250;
 
@@ -144,9 +145,8 @@ const SidebarList = ({
 };
 
 export const Sidebar = () => {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { user } = React.useContext(GlobalContext);
+  const { user, logOut } = React.useContext(GlobalContext);
   const [current, setCurrent] = React.useState("collections");
 
   const handleDrawerOpen = () => {
@@ -158,122 +158,148 @@ export const Sidebar = () => {
   };
 
   return (
-    <Box
-      sx={{
-        // width: "250px",
-        height: "100%",
-        display: "flex",
-      }}
-    >
-      <CssBaseline />
-      <Drawer
-        variant="permanent"
-        open={open}
-        sx={{}}
-        PaperProps={{
-          sx: {
-            backgroundColor: "#271F30",
-          },
+    <>
+      <Fab
+        sx={{
+          display: ["flex", "none"],
+          position: "fixed",
+          bottom: "3%",
+          backgroundColor: "white",
+        }}
+        onClick={logOut}
+      >
+        <ExitToApp
+          sx={{
+            color: "darkred",
+          }}
+        />
+      </Fab>
+      <Box
+        sx={{
+          height: "100%",
+          display: ["none", "flex"],
         }}
       >
-        <DrawerHeader
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            py: "24px",
-            px: "18px",
+        <CssBaseline />
+        <Drawer
+          variant="permanent"
+          open={open}
+          sx={{}}
+          PaperProps={{
+            sx: {
+              backgroundColor: "#271F30",
+            },
           }}
         >
-          <Typography
+          <DrawerHeader
             sx={{
-              display: open ? "flex" : "none",
-              fontFamily: "Playwrite NZ",
-              fontSize: "30px",
-              fontWeight: 700,
-              background:
-                "linear-gradient(90deg, rgba(180,93,238,1) 0%, rgba(253,29,29,1) 45%, rgba(252,176,69,1) 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              display: "flex",
+              justifyContent: "space-between",
+              py: "24px",
+              px: "18px",
             }}
           >
-            Coolify
-          </Typography>
-          <IconButton
-            sx={{
-              color: "white",
-            }}
-            onClick={open ? handleDrawerClose : handleDrawerOpen}
-          >
-            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List
-          sx={{
-            px: "12px",
-            // borderRadius: "12"
-          }}
-        >
-          {["Collections"].map((text, index) => (
-            <SidebarList
-              text={text}
-              open={open}
-              key={index}
-              icon={<Collections />}
-              current={current}
-              onClick={(e) =>
-                setCurrent(text.split(" ").join("-").toLowerCase())
-              }
-            />
-          ))}
-        </List>
-        <Box
-          sx={{
-            display: open ? "flex" : "none",
-            mt: "auto",
-            mb: "30px",
-            ml: "20px",
-            backgroundColor: "rgba(252,176,69,1)",
-            p: user ? "20px" : "0px",
-            borderRadius: "15px",
-          }}
-        >
-          {user ? (
-            <Box
+            <Typography
               sx={{
                 display: open ? "flex" : "none",
-                flexDirection: "column",
+                fontFamily: "Playwrite NZ",
+                fontSize: "30px",
+                fontWeight: 700,
+                background:
+                  "linear-gradient(90deg, rgba(180,93,238,1) 0%, rgba(253,29,29,1) 45%, rgba(252,176,69,1) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
               }}
             >
-              <Typography
-                sx={{
-                  color: "black",
-                  fontWeight: 700,
-                }}
-              >
-                {user!.name}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "11px",
-                }}
-              >
-                {user!.email}
-              </Typography>
-            </Box>
-          ) : (
-            <Button
+              Coolify
+            </Typography>
+            <IconButton
               sx={{
-                width: "100%",
-                height: "100%",
-                py: "20px",
+                color: "white",
               }}
+              onClick={open ? handleDrawerClose : handleDrawerOpen}
             >
-              Login Now
-            </Button>
-          )}
-        </Box>
-      </Drawer>
-    </Box>
+              {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List
+            sx={{
+              px: "12px",
+              // borderRadius: "12"
+            }}
+          >
+            {["Collections"].map((text, index) => (
+              <SidebarList
+                text={text}
+                open={open}
+                key={index}
+                icon={<Collections />}
+                current={current}
+                onClick={(e) =>
+                  setCurrent(text.split(" ").join("-").toLowerCase())
+                }
+              />
+            ))}
+          </List>
+          <Box
+            sx={{
+              display: open ? "flex" : "none",
+              mt: "auto",
+              mb: "30px",
+              ml: "20px",
+              backgroundColor: "rgba(252,176,69,1)",
+              p: user ? "20px" : "0px",
+              borderRadius: "15px",
+            }}
+          >
+            {user ? (
+              <Box
+                sx={{
+                  display: open ? "flex" : "none",
+                  flexDirection: "column",
+                  gap: "12px",
+                  width: "100%",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: open ? "flex" : "none",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "black",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {user!.name}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "11px",
+                    }}
+                  >
+                    {user!.email}
+                  </Typography>
+                </Box>
+                <MainButton text="Logout" onClick={logOut} />
+              </Box>
+            ) : (
+              <Button
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  py: "20px",
+                }}
+              >
+                Login Now
+              </Button>
+            )}
+          </Box>
+        </Drawer>
+      </Box>
+    </>
   );
 };

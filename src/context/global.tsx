@@ -1,7 +1,11 @@
 "use client";
 
 import { API_URL } from "@/constants";
-import { getFromLocalStorage } from "@/utils";
+import {
+  clearLocalStorage,
+  getFromLocalStorage,
+  setToLocalStorage,
+} from "@/utils";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
@@ -29,7 +33,7 @@ interface IGlobal {
   resendOtp: () => Promise<void>;
   submitOtp: (val: string) => Promise<void>;
   setMode: Dispatch<SetStateAction<"signup" | "not-signup">>;
-  //   closeModal: () => void,
+  logOut: () => void;
   open: boolean;
 }
 
@@ -39,8 +43,8 @@ export const GlobalContext = createContext<IGlobal>({
   resendOtp: async () => {},
   submitOtp: async (val: string) => {},
   open: false,
+  logOut: () => {},
   setMode: () => {},
-  //   closeModal: () => {}
 });
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
@@ -114,6 +118,13 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     setOpen(false);
   };
 
+  const logOut = () => {
+    clearLocalStorage();
+    setUser(null);
+    enqueueSnackbar({ message: "You just logged out!", variant: "error" });
+    router.replace("/");
+  };
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -136,6 +147,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         } else {
         }
       } catch (error: any) {
+        console.log(error);
         enqueueSnackbar({
           message:
             error.response.data && error.response.data.errors
@@ -157,6 +169,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         submitOtp,
         open,
         setMode,
+        logOut,
       }}
     >
       {children}

@@ -22,19 +22,25 @@ export interface IPost {
 interface ISingleCollection {
   collection: ICollection | {};
   posts: IPost[];
-  meta: IMeta | {};
+  meta: IMeta;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   togglePost: (id: string) => Promise<void>;
+  loading: boolean;
 }
 
 export const SingleCollectionContext = createContext<ISingleCollection>({
   collection: {},
   posts: [],
-  meta: {},
+  meta: {
+    page: 0,
+    pages: 0,
+    total: 0,
+  },
   page: 1,
   setPage: () => {},
   togglePost: async () => {},
+  loading: false,
 });
 
 export const SingleCollectionProvider = ({
@@ -45,12 +51,18 @@ export const SingleCollectionProvider = ({
   id: string;
 }) => {
   const [posts, setPosts] = useState<IPost[] | []>([]);
-  const [meta, setMeta] = useState<IMeta | {}>({});
+  const [meta, setMeta] = useState<IMeta>({
+    total: 0,
+    page: 0,
+    pages: 0,
+  });
   const [page, setPage] = useState(1);
   const [collection, setCollection] = useState<ICollection | {}>({});
+  const [loading, setLoading] = useState(true);
 
   const togglePost = async (id: string) => {
     try {
+      setLoading(true);
       const accessToken = getFromLocalStorage("accessToken");
       const res = await axios.put(
         API_URL +
@@ -67,6 +79,7 @@ export const SingleCollectionProvider = ({
       );
       console.log(res);
       setPosts((p) => p.filter((po) => po.id !== id));
+      setMeta((m) => ({ ...m, total: meta.total - 1 || 0 }));
       enqueueSnackbar({
         message: "Removed from collection!",
         variant: "success",
@@ -76,12 +89,15 @@ export const SingleCollectionProvider = ({
         message: "Unable to delete the post!",
         variant: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     const fetchCollection = async () => {
       try {
+        setLoading(true);
         const accessToken = getFromLocalStorage("accessToken");
         const res = await axios.get(
           API_URL + "/collection/" + id + "?page=" + page,
@@ -97,6 +113,8 @@ export const SingleCollectionProvider = ({
         setMeta(() => res.data.content.meta);
       } catch (error) {
         enqueueSnackbar({ message: "Cannot fetch posts!", variant: "error" });
+      } finally {
+        setLoading(false);
       }
     };
     fetchCollection();
@@ -111,6 +129,7 @@ export const SingleCollectionProvider = ({
         setPage,
         collection,
         togglePost,
+        loading,
       }}
     >
       {children}

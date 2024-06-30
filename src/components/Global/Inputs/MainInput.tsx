@@ -20,6 +20,7 @@ export const MainInput = ({ placeholder, required=false, icon, type = "text", fi
           width: "100%",
           pb: "12px",
           pl: "12px",
+          fontSize: ["13px", "auto"]
         }}
         name={fieldName}
         startAdornment={icon && <Icon sx={{ mr: "12px", color: !focused ? "#D2D2D2" : "#271F30" }}>{icon}</Icon>}

@@ -15,7 +15,7 @@ export const CollectionsList = ({
   return (
     <Box
       sx={{
-        mt: "20px",
+        // mt: "20px",
       }}
     >
       {collections.length > 0 && collections?.map((c, id) => {
@@ -33,7 +33,8 @@ export const CollectionsList = ({
             height: "80vh",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            fontSize: ["14px", "auto"]
           }}
         >
           <Typography>
