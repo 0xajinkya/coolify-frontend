@@ -104,7 +104,7 @@ export const LNavbar = () => {
         >
           Logged in as{" "}
           <Link
-            href={"/profile"}
+            href={"/app"}
             className="link"
             style={{
               color: "white",
