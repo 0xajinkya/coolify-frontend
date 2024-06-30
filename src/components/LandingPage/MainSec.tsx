@@ -113,9 +113,10 @@ export const MainSec = () => {
             justifyContent: "center",
             gap: "24px",
             alignItems: "center",
+            width: "100%"
           }}
         >
-          <OutlinedButton
+          {/* <OutlinedButton
             text="Watch How!"
             style={{
               fontSize: ["14px", "20px"],
@@ -123,7 +124,7 @@ export const MainSec = () => {
               width: [user ? "210px" : "auto"],
             }}
             // onClick={}
-          />
+          /> */}
           {!user ? (
             <MainButton
               text="Get Started"
