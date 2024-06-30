@@ -70,18 +70,18 @@ export const FeaturesSec = () => {
       >
         <Item
           icon="/images/home/diamond.webp"
-          title="Create infinite collections"
-          description="Experience the ultimate efficiency in tracking daily progress and generating monthly performance reports with our cutting-edge micro-SaaS solution. Say goodbye to tedious data entry and hello to streamlined success. Our platform empowers you to effortlessly manage your projects, monitor progress, and create insightful performance reports in a snap. With intuitive features and customizable templates, you can focus on what matters most—achieving your goals. Elevate your productivity, enhance decision-making, and reach new heights with our daily progress report management and performance report generation system"
+          title="Effortless Organization of Content"
+          description="Our extension allows users to effortlessly save LinkedIn posts directly into personalized collections. This feature streamlines the process of organizing valuable content, ensuring that important posts, articles, and updates are never lost in the feed. Users can create and manage multiple collections tailored to their interests or professional needs, making information retrieval quick and convenient."
         />
         <Item
           icon="/images/home/eth.webp"
-          title="Save posts directly from LinkedIn"
-          description="Unlock the potential of data-driven decision-making with our micro-SaaS for daily progress reports and monthly performance reports. Our state-of-the-art platform empowers you to harness the power of data, turning it into actionable insights. Whether you're a project manager, team lead, or business owner, our solution offers the tools you need to track daily progress and generate comprehensive performance reports with ease. Say goodbye to manual data crunching and hello to excellence. Elevate your projects, optimize your operations, and make data work for you"
+          title="Enhanced Productivity"
+          description="With our extension, users can maximize their productivity by keeping their LinkedIn feed clutter-free. By saving posts to specific collections, users can focus on current tasks without the distraction of trying to remember where they saw valuable content. This organized approach enables users to revisit saved posts at their convenience, allowing for better time management and efficient workflow."
         />
         <Item
           icon="/images/home/en.webp"
-          title="Progress Simplified, Results Amplified"
-          description="Experience the transformational impact of simplified progress tracking and amplified results with our micro-SaaS solution. We've designed a user-friendly platform that puts you in control of your daily progress and monthly performance. Effortlessly monitor your projects, set milestones, and generate comprehensive reports to achieve your goals faster. Our intuitive tools and templates save you time and stress. Whether you're an entrepreneur, manager, or professional, our system ensures your progress is simplified and your results are amplified. Embrace a new era of productivity and success with our daily progress and performance report management solution"
+          title="Simplified Content Curation and Sharing"
+          description="Sharing feature coming soon. Curating content for personal growth or sharing with peers has never been easier. Our extension simplifies the process of gathering insightful posts into well-organized collections that can be easily accessed and shared with others. Whether for team collaborations, networking, or personal development, this feature ensures that users have a wealth of resources at their fingertips, ready to be shared and discussed."
         />
       </Box>
     </Box>
