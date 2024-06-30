@@ -109,6 +109,7 @@ export const MainSec = () => {
         <Box
           sx={{
             display: "flex",
+            flexDirection: ["column", "row"],
             justifyContent: "center",
             gap: "24px",
             alignItems: "center",
