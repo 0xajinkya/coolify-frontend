@@ -50,7 +50,7 @@ export const Description = () => {
           }}
         >
           {path === "/sign-up"
-            ? "Sign up and make a collection for your LinkedIn posts now!"
+            ? "Sign up and make collections for your LinkedIn posts now!"
             : "Log back in and access your collections!"}
         </Typography>
         <Box
