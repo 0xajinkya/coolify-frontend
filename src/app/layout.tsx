@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     description:
       "Discover the ultimate LinkedIn tool! Save your favorite LinkedIn posts into collections effortlessly with Coolify. Check it out!",
     siteName: "Coolify",
-    url: "https://coolify.in",
+    url: "https://coolify.top",
     images: ["/logo/384x384.png"],
   },
   themeColor: "#271F30",
