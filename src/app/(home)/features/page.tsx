@@ -5,7 +5,11 @@ import { FeaturesSec, LNavbar, MainSec } from "@/components";
 
 export default function Page() {
   return (
-    <Box>
+    <Box
+      sx={{
+        mt: ["1px", "40px"]
+      }}
+    >
       <FeaturesSec />
     </Box>
   );

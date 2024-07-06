@@ -47,6 +47,7 @@ const Item = ({
 };
 
 export const FeaturesSec = () => {
+
   return (
     <Box
       sx={{

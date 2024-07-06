@@ -14,10 +14,15 @@ export default function Layout({
         minHeight: "100vh",
         backgroundColor: "#271F30",
         color: "white",
+        display: "flex",
+        flexDirection: ["column"],
+        justifyContent: ["space-between"],
       }}
     >
-      <LNavbar />
-      {children}
+      <Box>
+        <LNavbar />
+        {children}
+      </Box>
       <LFooter />
     </Box>
   );
