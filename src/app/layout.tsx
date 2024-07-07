@@ -4,17 +4,18 @@ import "./globals.css";
 import { Box } from "@mui/material";
 import { AllProviders } from "@/components";
 
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://coolify.top"),
   title: "Coolify",
   description:
     "Discover the ultimate LinkedIn tool! Save your favorite LinkedIn posts into collections effortlessly with Coolify. Check it out!",
   applicationName: "OnlyMess",
-  authors: [{
-    url: "https://linkedin.com/in/0xajinkya",
-    name: "Ajinkya"
-  }],
+  authors: [
+    {
+      url: "https://linkedin.com/in/0xajinkya",
+      name: "Ajinkya",
+    },
+  ],
   creator: "Coolify",
   robots: {
     googleBot: {
@@ -27,12 +28,11 @@ export const metadata: Metadata = {
       notranslate: true,
       indexifembedded: false,
       nositelinkssearchbox: true,
-      unavailable_after: '2025-01-01',
-      'max-video-preview': 120,
-      'max-image-preview': 'standard',
-      'max-snippet': 150
-
-    }
+      unavailable_after: "2025-01-01",
+      "max-video-preview": 120,
+      "max-image-preview": "standard",
+      "max-snippet": 150,
+    },
   },
   icons: ["/logo/192x192.png", "/logo/384x384.png", "/logo/500x500.png"],
   openGraph: {
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     "linkedin post save",
     "linkedin post collection",
   ],
-  manifest: "/manifest.json"
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -64,23 +64,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        style={{
-        }}
-      >
-      <Box
-        sx={{
-          width: "min(1920px, 100vw)",
-          maxWidth: "min(1920px, 100vw)",
-          overflowX: "hidden",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <AllProviders>{children}</AllProviders>
-      </Box>
+      <head>
+        <meta
+          name="trustpilot-one-time-domain-verification-id"
+          content="6baf6d54-b768-47bb-a020-3e20ae85e91c"
+        />
+      </head>
+      <body style={{}}>
+        <Box
+          sx={{
+            width: "min(1920px, 100vw)",
+            maxWidth: "min(1920px, 100vw)",
+            overflowX: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <AllProviders>{children}</AllProviders>
+        </Box>
       </body>
     </html>
   );
