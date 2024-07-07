@@ -45,7 +45,7 @@ export const VerifyEmailModal = ({
       <Fade in={open}>
         <Box
           sx={{
-            width: ["80%"],
+            width: ["80%", "20%"],
           }}
         >
           <Box
@@ -102,6 +102,9 @@ export const VerifyEmailModal = ({
                     backgroundColor: "#271F30",
                     color: "white",
                   },
+                  ":disabled" : {
+                    color: "grey"
+                  }
                 }}
                 disabled={otp?.length !== 6}
                 loading={loading}
