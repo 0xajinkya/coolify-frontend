@@ -6,6 +6,7 @@ import { MainButton, OutlinedButton } from "../Global";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { GlobalContext } from "@/context";
+import { EXTENSION_URL } from "@/constants";
 
 const AbsoluteImage = ({
   src,
@@ -111,45 +112,48 @@ export const MainSec = () => {
             display: "flex",
             flexDirection: ["column", "row"],
             justifyContent: "center",
-            gap: "24px",
-            alignItems: "center",
-            width: "100%"
+            gap: "36px",
+            alignItems: ["stretch", "center"],
+            width: ["70%", "80%", "90%"],
           }}
         >
-          {/* <OutlinedButton
-            text="Watch How!"
-            style={{
-              fontSize: ["14px", "20px"],
-              borderRadius: "40px",
-              width: [user ? "210px" : "auto"],
-            }}
-            // onClick={}
-          /> */}
           {!user ? (
             <MainButton
-              text="Get Started"
+              text="Go to app"
               onClick={() => router.push("/log-in")}
               style={{
-                background:
-                  "linear-gradient(90deg, #ffcbdd 0%, #fcdc4d 80%, #d36135 100%)",
-                border: "1px solid #fcdc4d",
+                border: "1px solid white",
                 fontSize: ["14px", "20px"],
                 borderRadius: "40px",
+                flex: 1
               }}
             />
           ) : (
-            <MainButton
+            <OutlinedButton
               text="Go to dashboard"
               onClick={() => router.push("/app")}
               style={{
-                background:
-                  "linear-gradient(90deg, #ffcbdd 0%, #fcdc4d 80%, #d36135 100%)",
-                border: "1px solid #fcdc4d",
+                border: "1px solid white",
                 fontSize: ["14px", "20px"],
                 borderRadius: "40px",
+                flex: 1
               }}
             />
           )}
+          <MainButton
+            text="Download the extension!"
+            style={{
+              border: "1px solid #fcdc4d",
+              background:
+                "linear-gradient(90deg, #ffcbdd 0%, #fcdc4d 80%, #d36135 100%)",
+              fontSize: ["14px", "20px"],
+              borderRadius: "40px",
+              width: [user ? "210px" : "auto"],
+              flex: 1
+
+            }}
+            onClick={() => window.open(EXTENSION_URL, "_blank")}
+          />
         </Box>
         <AbsoluteImage
           src={"/images/home/curve.png"}
