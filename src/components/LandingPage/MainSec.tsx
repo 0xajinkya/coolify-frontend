@@ -119,7 +119,7 @@ export const MainSec = () => {
         >
           {!user ? (
             <MainButton
-              text="Go to app"
+              text="Log in now!"
               onClick={() => router.push("/log-in")}
               style={{
                 border: "1px solid white",

@@ -64,12 +64,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="trustpilot-one-time-domain-verification-id"
-          content="6baf6d54-b768-47bb-a020-3e20ae85e91c"
-        />
-      </head>
       <body style={{}}>
         <Box
           sx={{
