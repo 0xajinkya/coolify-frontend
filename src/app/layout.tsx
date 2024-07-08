@@ -66,6 +66,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <SpeedInsights/>
+      <Analytics />
       <body style={{}}>
         <Box
           sx={{
