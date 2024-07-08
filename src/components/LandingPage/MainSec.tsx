@@ -148,7 +148,7 @@ export const MainSec = () => {
                 "linear-gradient(90deg, #ffcbdd 0%, #fcdc4d 80%, #d36135 100%)",
               fontSize: ["14px", "20px"],
               borderRadius: "40px",
-              width: [user ? "210px" : "auto"],
+              // width: [user ? "210px" : "auto"],
               flex: 1
 
             }}
