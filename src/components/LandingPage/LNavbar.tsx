@@ -52,19 +52,21 @@ export const LNavbar = () => {
         zIndex: 999,
       }}
     >
-      <Typography
-        sx={{
-          fontFamily: "Playwrite NZ",
-          fontSize: "30px",
-          fontWeight: 700,
-          background:
-            "linear-gradient(90deg, rgba(180,93,238,1) 0%, rgba(253,29,29,1) 45%, rgba(252,176,69,1) 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
-        Coolify
-      </Typography>
+      <Link href={"/"} className="link">
+        <Typography
+          sx={{
+            fontFamily: "Playwrite NZ",
+            fontSize: "30px",
+            fontWeight: 700,
+            background:
+              "linear-gradient(90deg, rgba(180,93,238,1) 0%, rgba(253,29,29,1) 45%, rgba(252,176,69,1) 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Coolify
+        </Typography>
+      </Link>
       <Box
         sx={{
           display: ["none", "flex"],

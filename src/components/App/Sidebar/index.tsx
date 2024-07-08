@@ -24,6 +24,7 @@ import { GlobalContext } from "@/context";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { Collections, ExitToApp } from "@mui/icons-material";
 import { MainButton } from "@/components/Global";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 250;
 
@@ -148,6 +149,7 @@ export const Sidebar = () => {
   const [open, setOpen] = React.useState(false);
   const { user, logOut } = React.useContext(GlobalContext);
   const [current, setCurrent] = React.useState("collections");
+  const router = useRouter();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -293,6 +295,7 @@ export const Sidebar = () => {
                   height: "100%",
                   py: "20px",
                 }}
+                onClick={() => router.push("/log-in")}
               >
                 Login Now
               </Button>

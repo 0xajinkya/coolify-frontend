@@ -74,15 +74,18 @@ export const LFooter = () => {
               gap: "6px",
             }}
           >
-            {["Terms of service", "Privacy policy"].map((d, i) => (
-              <Link key={i} href={d.toLowerCase().replace(" ", "-")} className="link">
+            {[
+              { title: "Terms and conditions", route: "/terms-and-conditions" },
+              { title: "Support", route: "/support" },
+            ].map((d, i) => (
+              <Link key={i} href={d.route} className="link">
                 <Typography
                   key={i}
                   sx={{
                     color: "#D2D2D2",
                   }}
                 >
-                  {d}
+                  {d.title}
                 </Typography>
               </Link>
             ))}
@@ -111,19 +114,18 @@ export const LFooter = () => {
               gap: "6px",
             }}
           >
-            {["Home", "Collections"].map((d, i) => (
-              <Link
-                key={i}
-                href={d === "Home" ? "/" : d.toLowerCase()}
-                className="link"
-              >
+            {[
+              { title: "Home", route: "/" },
+              { title: "Collections", route: "/app" },
+            ].map((d, i) => (
+              <Link key={i} href={d.route} className="link">
                 <Typography
                   key={i}
                   sx={{
                     color: "#D2D2D2",
                   }}
                 >
-                  {d}
+                  {d.title}
                 </Typography>
               </Link>
             ))}

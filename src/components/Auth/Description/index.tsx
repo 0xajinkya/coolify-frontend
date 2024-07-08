@@ -1,14 +1,16 @@
 "use client";
 
 import { Star, VerifyEmailModal } from "@/components/Global";
-import { SignupContext } from "@/context";
+import { GlobalComp } from "@/components/Global/GlobalComp";
+import { GlobalContext, SignupContext } from "@/context";
 import { Box, Typography } from "@mui/material";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
 
 export const Description = () => {
   const path = usePathname();
-
+  const { user } = useContext(GlobalContext);
 
   return (
     <Box
@@ -30,19 +32,21 @@ export const Description = () => {
           gap: "12px",
         }}
       >
-        <Typography
-          sx={{
-            fontFamily: "Playwrite NZ",
-            fontSize: "30px",
-            fontWeight: 700,
-            background:
-              "linear-gradient(90deg, rgba(180,93,238,1) 0%, rgba(253,29,29,1) 45%, rgba(252,176,69,1) 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          Coolify
-        </Typography>
+        <Link className="link" href={user ? "/app" : "/"}>
+          <Typography
+            sx={{
+              fontFamily: "Playwrite NZ",
+              fontSize: "30px",
+              fontWeight: 700,
+              background:
+                "linear-gradient(90deg, rgba(180,93,238,1) 0%, rgba(253,29,29,1) 45%, rgba(252,176,69,1) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Coolify
+          </Typography>
+        </Link>
         <Typography
           sx={{
             color: "white",
