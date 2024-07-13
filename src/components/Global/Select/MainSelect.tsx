@@ -2,13 +2,11 @@
 
 import {
   Box,
-  Icon,
   InputBase,
   MenuItem,
   Select,
   Typography,
 } from "@mui/material";
-import { MainInput } from "../Inputs";
 import { useState } from "react";
 
 export const MainSelect = ({
@@ -78,11 +76,16 @@ export const MainSelect = ({
           py: "6px",
         }}
       >
-        <MenuItem value={"public"}>Public</MenuItem>
-        <MenuItem selected value={"private"}>
-          Private
-        </MenuItem>
-        <MenuItem value={"unlisted"}>Unlisted</MenuItem>
+        {["public", "private", "unlisted"].map((v, i) => 
+          <MenuItem
+            sx={{
+              textTransform: "capitalize"
+            }}
+            value={v}
+          >
+            {v}
+          </MenuItem>
+        )}
       </Select>
     </Box>
   );
