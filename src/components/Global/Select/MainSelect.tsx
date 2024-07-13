@@ -82,6 +82,7 @@ export const MainSelect = ({
               textTransform: "capitalize"
             }}
             value={v}
+            key={i}
           >
             {v}
           </MenuItem>
