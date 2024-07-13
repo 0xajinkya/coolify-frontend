@@ -1,4 +1,4 @@
-import { MainButton, MainInput } from "@/components/Global";
+import { MainButton, MainInput, MainSelect } from "@/components/Global";
 import { Close } from "@mui/icons-material";
 import { Box, Fade, IconButton, Modal, Typography } from "@mui/material";
 
@@ -86,10 +86,18 @@ export const CreateCollectionModal = ({
                 placeholder="Name of the collection"
                 fieldName="name"
                 handleChange={handleCollectionForm}
+                required={true}
               />
               <MainInput
                 placeholder="Description of the collection"
                 fieldName="description"
+                handleChange={handleCollectionForm}
+                required={true}
+              />
+              <MainSelect
+                placeholder="Select visibility"
+                fieldName="permission"
+                required={true}
                 handleChange={handleCollectionForm}
               />
               <Box

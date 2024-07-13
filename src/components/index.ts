@@ -5,3 +5,4 @@ export * from "./SignupPage";
 export * from "./App";
 export * from "./Collections";
 export * from "./SingleCollection";
+export * from "./Share";

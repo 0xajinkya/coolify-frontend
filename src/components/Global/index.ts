@@ -6,3 +6,4 @@ export * from "./Inputs";
 export * from "./VerifyEmail";
 export * from "./Loader";
 export * from "./NothingToShow";
+export * from "./Select";

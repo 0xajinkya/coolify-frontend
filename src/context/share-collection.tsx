@@ -13,23 +13,19 @@ import { ICollection, IMeta } from "./collection";
 import axios from "axios";
 import { API_URL } from "@/constants";
 import { getFromLocalStorage } from "@/utils";
+import { IPost } from "./single-collection";
+import { useRouter } from "next/navigation";
 
-export interface IPost {
-  id: string;
-  postId: string;
-}
-
-export interface ISingleCollection {
+interface IShareCollection {
   collection: ICollection | {};
   posts: IPost[];
   meta: IMeta;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  togglePost: (id: string) => Promise<void>;
   loading: boolean;
 }
 
-export const SingleCollectionContext = createContext<ISingleCollection>({
+export const ShareCollectionContext = createContext<IShareCollection>({
   collection: {},
   posts: [],
   meta: {
@@ -39,17 +35,17 @@ export const SingleCollectionContext = createContext<ISingleCollection>({
   },
   page: 1,
   setPage: () => {},
-  togglePost: async () => {},
   loading: false,
 });
 
-export const SingleCollectionProvider = ({
+export const ShareCollectionProvider = ({
   children,
   id,
 }: {
   children: ReactNode;
   id: string;
 }) => {
+  const router = useRouter();
   const [posts, setPosts] = useState<IPost[] | []>([]);
   const [meta, setMeta] = useState<IMeta>({
     total: 0,
@@ -60,47 +56,18 @@ export const SingleCollectionProvider = ({
   const [collection, setCollection] = useState<ICollection | {}>({});
   const [loading, setLoading] = useState(true);
 
-  const togglePost = async (id: string) => {
-    try {
-      setLoading(true);
-      const accessToken = getFromLocalStorage("accessToken");
-      const res = await axios.put(
-        API_URL +
-          "/collection/toggle/" +
-          (collection as ICollection).id +
-          "?postId=" +
-          id,
-        {},
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        }
-      );
-      console.log(res);
-      setPosts((p) => p.filter((po) => po.id !== id));
-      setMeta((m) => ({ ...m, total: meta.total - 1 || 0 }));
-      enqueueSnackbar({
-        message: "Removed from collection!",
-        variant: "success",
-      });
-    } catch (error) {
-      enqueueSnackbar({
-        message: "Unable to delete the post!",
-        variant: "error",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     const fetchCollection = async () => {
       try {
         setLoading(true);
         const accessToken = getFromLocalStorage("accessToken");
+        if (!accessToken) {
+          enqueueSnackbar({ message: "Please login first!", variant: "error" });
+          router.replace("/log-in");
+          return;
+        }
         const res = await axios.get(
-          API_URL + "/collection/" + id + "?page=" + page,
+          API_URL + "/collection/share/" + id + "?page=" + page,
           {
             headers: {
               Authorization: accessToken,
@@ -121,18 +88,17 @@ export const SingleCollectionProvider = ({
   }, [page]);
 
   return (
-    <SingleCollectionContext.Provider
+    <ShareCollectionContext.Provider
       value={{
         posts,
         meta,
         page,
         setPage,
         collection,
-        togglePost,
         loading,
       }}
     >
       {children}
-    </SingleCollectionContext.Provider>
+    </ShareCollectionContext.Provider>
   );
 };

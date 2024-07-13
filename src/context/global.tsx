@@ -150,9 +150,9 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         console.log(error);
         enqueueSnackbar({
           message:
-            error.response.data && error.response.data.errors
+            error.response && error.response.data && error.response.data.errors
               ? error.response.data.errors[0].message
-              : error.response.data.message,
+              : error.response && error.response.data && error.response.data. message ? error.response.data.message : error?.message,
           variant: "error",
         });
       }

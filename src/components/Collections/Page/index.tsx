@@ -1,12 +1,13 @@
 "use client";
 
-import { Box, CircularProgress, Fade, Modal, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Heading } from "../Heading";
 import { CollectionsList } from "../CollectionsList";
 import { useContext } from "react";
 import { AppContext, CollectionContext } from "@/context";
 import { Loader } from "@/components/Global";
 import { CreateCollectionModal } from "../CreateCollectionModal";
+import { ShareCollectionModal } from "../ShareCollection";
 
 export const CollectionPage = () => {
   const {
@@ -16,27 +17,39 @@ export const CollectionPage = () => {
     createCollection,
     toggleModal,
     createModal,
-    handleCollectionForm
+    handleCollectionForm,
+    shareCollection,
+    closeShareCollectionModal,
+    openShareCollectionModal,
   } = useContext(CollectionContext);
 
   return (
-    <Box 
+    <Box
       sx={{
         position: "relative",
-        // pt: "20px"
       }}
     >
-      <Heading 
-        toggleModal={toggleModal}
-      />
-      {/* <Box sx={{mt: "40px"}}></Box> */}
+      <Heading toggleModal={toggleModal} />
       <CollectionsList
         collections={collections}
         deleteCollection={deleteCollection}
         loading={loading}
+        openShareCollectionModal={openShareCollectionModal}
       />
       <Loader loading={loading} />
-      <CreateCollectionModal createCollection={createCollection} open={createModal} toggleModal={toggleModal} handleCollectionForm={handleCollectionForm}/>
+      <CreateCollectionModal
+        createCollection={createCollection}
+        open={createModal}
+        toggleModal={toggleModal}
+        handleCollectionForm={handleCollectionForm}
+
+      />
+      {Boolean(shareCollection) && (
+        <ShareCollectionModal
+          shareData={shareCollection}
+          toggleModal={closeShareCollectionModal}
+        />
+      )}
     </Box>
   );
 };

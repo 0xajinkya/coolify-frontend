@@ -1,3 +1,5 @@
+"use client";
+
 import { getFromLocalStorage } from "@/utils";
 import { ArrowBack } from "@mui/icons-material";
 import { Box, IconButton, Typography } from "@mui/material";

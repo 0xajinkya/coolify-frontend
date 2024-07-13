@@ -239,7 +239,8 @@ export const Sidebar = () => {
                 icon={<Collections />}
                 current={current}
                 onClick={(e) =>
-                  setCurrent(text.split(" ").join("-").toLowerCase())
+                  // setCurrent(text.split(" ").join("-").toLowerCase())
+                  router.push("/app")
                 }
               />
             ))}

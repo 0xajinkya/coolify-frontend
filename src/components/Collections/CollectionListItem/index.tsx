@@ -15,9 +15,15 @@ import React from "react";
 export const CollectionsListItem = ({
   c,
   deleteCollection,
+  openShareCollectionModal,
 }: {
   c: ICollection;
   deleteCollection: (id: string) => Promise<void>;
+  openShareCollectionModal: (
+    name: string,
+    id: string,
+    description: string
+  ) => void;
 }) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -41,6 +47,8 @@ export const CollectionsListItem = ({
       <CardActionArea
         sx={{
           flex: 1,
+          display: "flex",
+          alignItems: "center",
           cursor: "pointer",
           p: "4px",
           mt: "12px",
@@ -50,8 +58,44 @@ export const CollectionsListItem = ({
         }}
         onClick={() => router.push(`/app/${c.id}`)}
       >
-        <Box>
-          <Typography sx={{ fontWeight: [700, 600], fontSize: ["14px", "auto"] }}>{c.name}</Typography>
+        <Box
+          sx={{
+            flex: 1,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "12px",
+            }}
+          >
+            <Typography
+              sx={{ fontWeight: [700, 600], fontSize: ["14px", "auto"] }}
+            >
+              {c.name}
+            </Typography>
+            <Typography
+              sx={{
+                textTransform: "capitalize",
+                fontSize: "10px",
+                mr: "20px",
+                backgroundColor:
+                  c.permission === "public"
+                    ? "darkred"
+                    : c.permission === "private"
+                    ? "darkgreen"
+                    : "yellow",
+                color: c.permission !== "unlisted" ? "white" : "black",
+                px: "12px",
+                py: "3px",
+                borderRadius: "12px",
+              }}
+            >
+              {c.permission}
+            </Typography>
+          </Box>
           <Typography
             sx={{
               fontSize: ["10px", "11px"],
@@ -79,7 +123,7 @@ export const CollectionsListItem = ({
           sx={{
             width: "18px",
             height: "18px",
-            transform: ["rotate(90deg)", "none"]
+            transform: ["rotate(90deg)", "none"],
           }}
         />
       </IconButton>
@@ -99,6 +143,14 @@ export const CollectionsListItem = ({
           }}
         >
           View
+        </MenuItem>
+        <MenuItem
+          onClick={() => openShareCollectionModal(c.name, c.id, c.description)}
+          style={{
+            display: c.permission !== "private" ? "flex" : "none",
+          }}
+        >
+          Share
         </MenuItem>
         <MenuItem
           onClick={() => {

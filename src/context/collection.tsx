@@ -12,6 +12,7 @@ export interface ICollection {
   description: string;
   createdAt: string;
   updatedAt: string;
+  permission: "private" | "public" | "unlisted",
   owner?: {
     name: string,
     id: string
@@ -24,15 +25,24 @@ export interface IMeta {
   total: number;
 }
 
+export interface IShareCollection {
+  name: string,
+  id: string,
+  description: string
+}
+
 interface ICollectionCtx {
   collections: ICollection[] | [];
   meta: IMeta | {};
   deleteCollection: (id: string) => Promise<void>;
   loading: boolean;
-  handleCollectionForm: (key: "name" | "description", val: string) => void;
+  handleCollectionForm: (key: "name" | "description" | "permission", val: string) => void;
   createCollection: () => Promise<void>;
   createModal: boolean;
   toggleModal: () => void;
+  shareCollection: IShareCollection | null;
+  openShareCollectionModal: (name: string, id: string, description: string) => void;
+  closeShareCollectionModal: () => void
 }
 
 export const CollectionContext = createContext<ICollectionCtx>({
@@ -44,14 +54,19 @@ export const CollectionContext = createContext<ICollectionCtx>({
   createCollection: async () => {},
   createModal: false,
   toggleModal: () => {},
+  shareCollection: null,
+  openShareCollectionModal: (name: string, id: string, description: string) => {},
+  closeShareCollectionModal: () => {}
 });
 
 export const CollectionProvider = ({ children }: { children: ReactNode }) => {
+  const [shareCollection, setShareCollection] = useState<IShareCollection | null>(null);
   const [createModal, setCreateModal] = useState(false);
   const [collections, setCollections] = useState<ICollection[] | []>([]);
   const [collectionForm, setCollectionForm] = useState({
     name: "",
     description: "",
+    permission: "private"
   });
   const [loading, setLoading] = useState(false);
   const [meta, setMeta] = useState<IMeta | {}>({});
@@ -80,11 +95,12 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const handleCollectionForm = (key: "name" | "description", val: string) => {
+  const handleCollectionForm = (key: "name" | "description" | "permission", val: string) => {
     setCollectionForm((f) => ({ ...f, [key]: val }));
   };
 
   const createCollection = async () => {
+    console.log(collectionForm)
     const accessToken = getFromLocalStorage("accessToken");
     try {
       setLoading(true);
@@ -102,7 +118,7 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
       console.log(res.data.content.data);
       setCollections((c) => [res.data.content.data, ...c]);
       setCreateModal(false);
-      setCollectionForm({ name: "", description: "" });
+      setCollectionForm({ name: "", description: "", permission: "private"});
       enqueueSnackbar({
         message: "Collection created successfully!",
         variant: "success",
@@ -117,6 +133,9 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
+
+  const closeShareCollectionModal = () => setShareCollection(null);
+  const openShareCollectionModal = (name: string, id: string, description: string) => setShareCollection({name, id, description})
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -152,6 +171,9 @@ export const CollectionProvider = ({ children }: { children: ReactNode }) => {
         createCollection,
         toggleModal,
         createModal,
+        shareCollection,
+        openShareCollectionModal,
+        closeShareCollectionModal
       }}
     >
       {children}
