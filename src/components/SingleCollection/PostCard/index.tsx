@@ -2,8 +2,10 @@
 import { IPost } from "@/context";
 import { MoreHoriz } from "@mui/icons-material";
 import {
+  Box,
   Card,
   CardActionArea,
+  Icon,
   IconButton,
   Menu,
   MenuItem,
@@ -13,6 +15,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import cheerio from "cheerio";
+import Image from "next/image";
 
 export const PostCard = ({
   post,
@@ -76,14 +79,35 @@ export const PostCard = ({
           )
         }
       >
-        <Typography
+        <Box
           sx={{
-            fontWeight: 600,
-            fontSize: "14px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            pr: "30px",
           }}
         >
-          {title !== "" ? title : "Click to view this post!"}
-        </Typography>
+          <Typography
+            sx={{
+              fontWeight: 600,
+              fontSize: "14px",
+            }}
+          >
+            {title !== "" ? title : "Click to view this post!"}
+          </Typography>
+          <Icon>
+            <Image
+              width={30}
+              height={30}
+              alt={post.tag}
+              src={
+                post.tag === "linkedin"
+                  ? "/icons/linkedin.svg"
+                  : "/icons/twitter.svg"
+              }
+            />
+          </Icon>
+        </Box>
       </CardActionArea>
       {togglePost && (
         <>
@@ -125,7 +149,7 @@ export const PostCard = ({
             <MenuItem
               onClick={() => {
                 handleClose();
-                togglePost(post.id);
+                togglePost(post.postId);
               }}
             >
               Delete

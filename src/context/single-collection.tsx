@@ -12,11 +12,12 @@ import {
 import { ICollection, IMeta } from "./collection";
 import axios from "axios";
 import { API_URL } from "@/constants";
-import { getFromLocalStorage } from "@/utils";
+import { fetchCollectionApiCall, getFromLocalStorage, togglePostApiCall } from "@/utils";
 
 export interface IPost {
   id: string;
   postId: string;
+  tag: "linkedin" | "twitter"
 }
 
 export interface ISingleCollection {
@@ -64,21 +65,14 @@ export const SingleCollectionProvider = ({
     try {
       setLoading(true);
       const accessToken = getFromLocalStorage("accessToken");
-      const res = await axios.put(
-        API_URL +
-          "/collection/toggle/" +
-          (collection as ICollection).id +
-          "?postId=" +
-          id,
-        {},
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        }
+
+      const res = await togglePostApiCall(
+        (collection as ICollection).id,
+        id,
+        accessToken as string
       );
-      console.log(res);
-      setPosts((p) => p.filter((po) => po.id !== id));
+      
+      setPosts((p) => p.filter((po) => po.postId !== id));
       setMeta((m) => ({ ...m, total: meta.total - 1 || 0 }));
       enqueueSnackbar({
         message: "Removed from collection!",
@@ -99,18 +93,12 @@ export const SingleCollectionProvider = ({
       try {
         setLoading(true);
         const accessToken = getFromLocalStorage("accessToken");
-        const res = await axios.get(
-          API_URL + "/collection/" + id + "?page=" + page,
-          {
-            headers: {
-              Authorization: accessToken,
-            },
-          }
-        );
-        console.log(res.data.content.data);
-        setPosts(() => res.data.content.data.posts);
-        setCollection(() => res.data.content.data.collection);
-        setMeta(() => res.data.content.meta);
+        // API call
+        const res = await fetchCollectionApiCall(id, page, accessToken as string);
+        console.log(res.content.data);
+        setPosts(() => res.content.data.posts);
+        setCollection(() => res.content.data.collection);
+        setMeta(() => res.content.meta);
       } catch (error) {
         enqueueSnackbar({ message: "Cannot fetch posts!", variant: "error" });
       } finally {
