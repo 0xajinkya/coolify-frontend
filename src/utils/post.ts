@@ -32,7 +32,7 @@ export const fetchCollectionApiCall = async (
       Authorization: token,
       "Content-Type": "application/json",
     },
-    cache: "force-cache",
+    cache: "no-cache",
   });
   if (!response.ok) {
     const res = await response.json();
