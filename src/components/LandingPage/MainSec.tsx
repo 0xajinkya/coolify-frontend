@@ -4,9 +4,9 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { MainButton, OutlinedButton } from "../Global";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
-import { EXTENSION_URL } from "@/constants";
+import { CHROME_EXTENSION_URL, FIREFOX_EXTENSION_URL } from "@/constants";
 
 const AbsoluteImage = ({
   src,
@@ -53,6 +53,18 @@ const AbsoluteImage = ({
 export const MainSec = () => {
   const router = useRouter();
   const { user } = useContext(GlobalContext);
+
+  const [extensionUrl, setExtensionUrl] = useState("");
+
+  useEffect(() => {
+    // Detect the browser and set the appropriate URL
+    const userAgent = navigator.userAgent;
+    if (userAgent.includes("Chrome") || userAgent.includes("Edge")) {
+      setExtensionUrl(CHROME_EXTENSION_URL as string);
+    } else if (userAgent.includes("Firefox")) {
+      setExtensionUrl(FIREFOX_EXTENSION_URL as string);
+    }
+  }, []);
 
   return (
     <Box
@@ -125,7 +137,7 @@ export const MainSec = () => {
                 border: "1px solid white",
                 fontSize: ["14px", "20px"],
                 borderRadius: "40px",
-                flex: 1
+                flex: 1,
               }}
             />
           ) : (
@@ -136,7 +148,7 @@ export const MainSec = () => {
                 border: "1px solid white",
                 fontSize: ["14px", "20px"],
                 borderRadius: "40px",
-                flex: 1
+                flex: 1,
               }}
             />
           )}
@@ -149,10 +161,9 @@ export const MainSec = () => {
               fontSize: ["14px", "20px"],
               borderRadius: "40px",
               // width: [user ? "210px" : "auto"],
-              flex: 1
-
+              flex: 1,
             }}
-            onClick={() => window.open(EXTENSION_URL, "_blank")}
+            onClick={() => window.open(extensionUrl, "_blank")}
           />
         </Box>
         <AbsoluteImage
