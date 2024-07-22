@@ -91,12 +91,11 @@ export const MainSec = () => {
           sx={{
             // fontFamily: "Playwrite NZ",
             textAlign: "center",
-            fontSize: ["22px", "48px"],
+            fontSize: ["20px", "48px"],
             lineHeight: ["35px", "75px"],
           }}
         >
-          Save any post from LinkedIn, <br />
-          straight into{" "}
+          Save any post straight into <br />{" "}
           <span
             style={{
               background:
@@ -119,6 +118,37 @@ export const MainSec = () => {
           Create different collections for different purposes <br />
           to save your posts accordingly, acces them anywhere!
         </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+            alignItems: "center"
+          }}
+        >
+          <Typography>Works with</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px"
+            }}
+          >
+            <Image 
+              src={"/icons/linkedin.svg"}
+              alt="LinkedIn"
+              width={40}
+              height={40}
+            />
+            <Typography>{"&"}</Typography>
+            <Image 
+              src={"/icons/twitter.svg"}
+              alt="LinkedIn"
+              width={40}
+              height={40}
+            />
+          </Box>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -149,6 +179,7 @@ export const MainSec = () => {
                 fontSize: ["14px", "20px"],
                 borderRadius: "40px",
                 flex: 1,
+                minWidth: ["auto", "295px"],
               }}
             />
           )}
@@ -162,6 +193,7 @@ export const MainSec = () => {
               borderRadius: "40px",
               // width: [user ? "210px" : "auto"],
               flex: 1,
+              minWidth: ["auto", "295px"],
             }}
             onClick={() => window.open(extensionUrl, "_blank")}
           />
@@ -171,15 +203,15 @@ export const MainSec = () => {
           alt="curve"
           width={[220, 500]}
           height={[20, 50]}
-          top={["30%", "40%"]}
-          left={["39%", "37%"]}
+          top={["16%", "30%"]}
+          left={["17%", "12%"]}
         />
         <AbsoluteImage
           src={"/images/home/chat.png"}
           alt="curve"
           width={[25, 70]}
           height={[25, 70]}
-          top={["-45%"]}
+          top={["-15%"]}
           left={["85%", "-40%"]}
         />
 
@@ -188,7 +220,7 @@ export const MainSec = () => {
           alt="curve"
           width={[45, 70]}
           height={[45, 70]}
-          top={["-25%", "-35%"]}
+          top={["-25%", "-20%"]}
           left={["14%", "48%"]}
         />
         <AbsoluteImage
@@ -196,7 +228,7 @@ export const MainSec = () => {
           alt="curve"
           width={[30, 70]}
           height={[30, 70]}
-          top={["170%", "5%"]}
+          top={["170%", "15%"]}
           left={["10%", "140%"]}
         />
 
@@ -205,7 +237,7 @@ export const MainSec = () => {
           alt="curve"
           width={[30, 70]}
           height={[30, 70]}
-          top={["120%", "145%"]}
+          top={["120%", "120%"]}
           left={["80%", "-50%"]}
         />
       </Box>

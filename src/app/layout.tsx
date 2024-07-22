@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://coolify.top"),
   title: "Coolify",
   description:
-    "Discover the ultimate LinkedIn tool! Save your favorite LinkedIn posts into collections effortlessly with Coolify. Check it out!",
+    "Discover the ultimate collection tool! Save your favorite LinkedIn & Twitter posts into collections effortlessly with Coolify. Check it out!",
   applicationName: "OnlyMess",
   authors: [
     {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "Coolify",
     description:
-      "Discover the ultimate LinkedIn tool! Save your favorite LinkedIn posts into collections effortlessly with Coolify. Check it out!",
+      "Discover the ultimate collection tool! Save your favorite LinkedIn & Twitter posts into collections effortlessly with Coolify. Check it out!",
     siteName: "Coolify",
     url: "https://coolify.top",
     images: ["/logo/384x384.png"],
@@ -55,6 +55,8 @@ export const metadata: Metadata = {
     "collection",
     "linkedin post save",
     "linkedin post collection",
+    "twitter post save",
+    "twitter post collection",
   ],
   manifest: "/manifest.json",
 };
