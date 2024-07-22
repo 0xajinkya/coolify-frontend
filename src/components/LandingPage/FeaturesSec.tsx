@@ -72,12 +72,12 @@ export const FeaturesSec = () => {
         <Item
           icon="/images/home/diamond.webp"
           title="Effortless Organization of Content"
-          description="Our extension allows users to effortlessly save LinkedIn posts directly into personalized collections. This feature streamlines the process of organizing valuable content, ensuring that important posts, articles, and updates are never lost in the feed. Users can create and manage multiple collections tailored to their interests or professional needs, making information retrieval quick and convenient."
+          description="Our extension allows users to effortlessly save LinkedIn & Twitter posts directly into personalized collections. This feature streamlines the process of organizing valuable content, ensuring that important posts, articles, and updates are never lost in the feed. Users can create and manage multiple collections tailored to their interests or professional needs, making information retrieval quick and convenient."
         />
         <Item
           icon="/images/home/eth.webp"
           title="Enhanced Productivity"
-          description="With our extension, users can maximize their productivity by keeping their LinkedIn feed clutter-free. By saving posts to specific collections, users can focus on current tasks without the distraction of trying to remember where they saw valuable content. This organized approach enables users to revisit saved posts at their convenience, allowing for better time management and efficient workflow."
+          description="With our extension, users can maximize their productivity by keeping their LinkedIn & Twitter feed clutter-free. By saving posts to specific collections, users can focus on current tasks without the distraction of trying to remember where they saw valuable content. This organized approach enables users to revisit saved posts at their convenience, allowing for better time management and efficient workflow."
         />
         <Item
           icon="/images/home/en.webp"
