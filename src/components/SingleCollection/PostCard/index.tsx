@@ -74,7 +74,9 @@ export const PostCard = ({
         }}
         onClick={() =>
           window.open(
-            "https://www.linkedin.com/feed/update/" + post.postId,
+            post.tag === "linkedin"
+              ? "https://www.linkedin.com/feed/update/" + post.postId
+              : "https://x.com/" + post.postId,
             "_blank"
           )
         }
