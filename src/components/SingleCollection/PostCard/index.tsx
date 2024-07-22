@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import cheerio from "cheerio";
+import cheerio, { load } from "cheerio";
 import Image from "next/image";
 
 export const PostCard = ({
@@ -42,11 +42,11 @@ export const PostCard = ({
       try {
         axios.defaults.headers.common["User-Agent"] =
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36";
-        const res = await fetch("/api/get-from-linkedin?id=" + post.postId, {
+        const res = await fetch(post.tag === "linkedin" ? "/api/get-from-linkedin?id=" + post.postId: "/api/get-from-twitter?id=" + post.postId, {
           method: "GET",
         });
         const resHtml = await res.text();
-        const $ = cheerio.load(resHtml);
+        const $ = load(resHtml);
 
         const title = $("title").text();
         setTitle(title);
