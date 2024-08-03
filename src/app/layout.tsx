@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Coolify",
   description:
     "Discover the ultimate collection tool! Save your favorite LinkedIn & Twitter posts into collections effortlessly with Coolify. Check it out!",
-  applicationName: "OnlyMess",
+  applicationName: "Coolify",
   authors: [
     {
       url: "https://linkedin.com/in/0xajinkya",
